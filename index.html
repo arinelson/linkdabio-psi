@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dra. Helena Costa | Psicóloga</title>
+    
+    <!-- Tailwind CSS for rapid, responsive UI development -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom Fonts: Orbitron for titles, Rajdhani for text -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;700&display=swap');
+
+        /* * ==============================================
+         * ||         ESTÉTICA NEURO-TECH/CYBERPUNK      ||
+         * ==============================================
+         * Definindo a paleta de cores e estilos base para o tema.
+         */
+        :root {
+            --neon-blue: #00f0ff;
+            --neon-pink: #ff00f0;
+            --dark-bg: #0a0a15;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--dark-bg);
+            color: #f0f0f0;
+            overflow-x: hidden;
+        }
+
+        /* Títulos com a fonte tecnológica 'Orbitron' */
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Efeitos de brilho (glow) para textos neon */
+        .neon-text-blue {
+            text-shadow: 0 0 8px var(--neon-blue), 0 0 16px var(--neon-blue), 0 0 24px var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        /* Efeitos de brilho (glow) para bordas neon */
+        .neon-border-blue {
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue), inset 0 0 10px var(--neon-blue);
+        }
+
+        .neon-border-pink {
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 10px var(--neon-pink), inset 0 0 10px var(--neon-pink);
+        }
+
+        /* Efeito de hover para ícones de redes sociais */
+        .glow-hover:hover {
+            color: var(--neon-pink);
+            filter: drop-shadow(0 0 8px var(--neon-pink));
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Fundo com grade digital sutil */
+        .cyber-grid {
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.07) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* Animação de fundo da rede neural */
+        #neural-network-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .node {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--neon-blue), transparent 60%);
+            transition: transform 1s ease-in-out;
+        }
+
+        .connection {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-pink));
+            transform-origin: left center;
+            opacity: 0.2;
+        }
+
+        /* Estilo para botões de ação (Call to Action) */
+        .cyber-button {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255, 0, 240, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: skewX(-30deg);
+            transition: left 0.7s ease-in-out;
+        }
+
+        .cyber-button:hover::before {
+            left: 150%;
+        }
+
+        .cyber-button:hover {
+            box-shadow: 0 0 15px var(--neon-pink), inset 0 0 15px var(--neon-pink);
+            background: rgba(255, 0, 240, 0.2);
+        }
+    </style>
+</head>
+<body class="cyber-grid">
+
+    <!-- 
+      * ==============================================
+      * ||            TELA DE CARREGAMENTO            ||
+      * ==============================================
+      * Simula uma inicialização, melhorando a imersão no tema.
+    -->
+    <div id="loading" class="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center transition-opacity duration-1000">
+        <div class="text-3xl font-orbitron neon-text-blue mb-4">CONECTANDO</div>
+        <div class="font-mono text-sm text-gray-400 mb-6" id="loading-text">Calibrando sinapses...</div>
+        <div class="w-64 h-1 bg-gray-800 rounded-full overflow-hidden border border-blue-500/30">
+            <div id="loading-bar" class="h-full bg-gradient-to-r from-blue-500 to-pink-500" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <!-- Animação de fundo da rede neural -->
+    <div id="neural-network-bg"></div>
+
+    <!-- 
+      * ==============================================
+      * ||           CONTEÚDO PRINCIPAL             ||
+      * ==============================================
+      * Estrutura central da página "link na bio".
+    -->
+    <main class="relative z-10 flex flex-col items-center justify-center min-h-screen p-4 pt-16 sm:pt-20">
+        
+        <div class="w-full max-w-md mx-auto text-center">
+
+            <!-- Foto de Perfil -->
+            <div class="mb-4">
+                <img 
+                  src="https://placehold.co/150x150/0a0a15/00f0ff?text=HC" 
+                  alt="Foto de perfil da Dra. Helena Costa" 
+                  class="w-32 h-32 md:w-36 md:h-36 rounded-full mx-auto p-1 neon-border-blue object-cover"
+                  onerror="this.onerror=null;this.src='https://placehold.co/150x150/0a0a15/ffffff?text=FOTO';"
+                >
+            </div>
+
+            <!-- Identificação -->
+            <h1 class="text-3xl md:text-4xl font-orbitron neon-text-blue mb-2">Dra. Helena Costa</h1>
+            <h2 class="text-md md:text-lg text-gray-300 mb-4">Psicóloga | Especialista em Neurociência e Comportamento</h2>
+            
+            <!-- Bio Curta -->
+            <p class="text-sm md:text-base text-gray-400 mb-8 px-4">
+                "Desvendando os caminhos da mente para uma vida mais plena e consciente."
+            </p>
+
+            <!-- Links Principais (Botões) -->
+            <div class="flex flex-col space-y-4 w-full px-2">
+                <a href="#" class="cyber-button neon-border-pink text-white font-bold py-3 px-4 rounded-lg w-full block">
+                    Agendar sua Consulta
+                </a>
+                <a href="#" class="cyber-button neon-border-pink text-white font-bold py-3 px-4 rounded-lg w-full block">
+                    Contato via WhatsApp
+                </a>
+                <a href="#" class="cyber-button neon-border-pink text-white font-bold py-3 px-4 rounded-lg w-full block">
+                    Siga no Instagram
+                </a>
+                <a href="#" class="cyber-button neon-border-pink text-white font-bold py-3 px-4 rounded-lg w-full block">
+                    Meus Artigos e Publicações
+                </a>
+                 <a href="#" class="cyber-button neon-border-pink text-white font-bold py-3 px-4 rounded-lg w-full block">
+                    Conheça meus Serviços
+                </a>
+            </div>
+
+            <!-- Ícones de Redes Sociais -->
+            <div class="flex justify-center space-x-6 mt-10">
+                <a href="#" class="text-2xl text-gray-400 glow-hover" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="text-2xl text-gray-400 glow-hover" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="text-2xl text-gray-400 glow-hover" aria-label="Blog"><i class="fas fa-blog"></i></a>
+            </div>
+
+        </div>
+
+        <!-- Rodapé -->
+        <footer class="mt-12 text-center text-xs text-gray-600">
+            <p>CRP 00/123456</p>
+            <p>&copy; 2024 Dra. Helena Costa. Todos os direitos reservados.</p>
+        </footer>
+
+    </main>
+
+    <!-- 
+      * ==============================================
+      * ||              SCRIPTS                     ||
+      * ==============================================
+      * Lógica para animações e interatividade da página.
+    -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- Lógica da Tela de Carregamento ---
+            const loadingBar = document.getElementById('loading-bar');
+            const loadingScreen = document.getElementById('loading');
+            const loadingText = document.getElementById('loading-text');
+            const phrases = ["Calibrando sinapses...", "Analisando padrões neurais...", "Conectando à sua mente..."];
+            let phraseIndex = 0;
+
+            const textInterval = setInterval(() => {
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                loadingText.style.opacity = 0;
+                setTimeout(() => {
+                    loadingText.textContent = phrases[phraseIndex];
+                    loadingText.style.opacity = 1;
+                }, 500);
+            }, 1500);
+
+            let currentWidth = 0;
+            const loadingInterval = setInterval(() => {
+                currentWidth += 1;
+                loadingBar.style.width = currentWidth + '%';
+
+                if (currentWidth >= 100) {
+                    clearInterval(loadingInterval);
+                    clearInterval(textInterval);
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                        }, 1000); // Garante que a transição de opacidade termine
+                    }, 500);
+                }
+            }, 30); // Velocidade do carregamento
+
+            // --- Lógica da Animação de Fundo da Rede Neural ---
+            const neuralNetworkBg = document.getElementById('neural-network-bg');
+            const nodes = [];
+            const numNodes = 30; // Número de nós na rede
+
+            // Cria os nós
+            for (let i = 0; i < numNodes; i++) {
+                const nodeEl = document.createElement('div');
+                nodeEl.className = 'node';
+                
+                const size = Math.random() * 10 + 3;
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+
+                nodeEl.style.width = `${size}px`;
+                nodeEl.style.height = `${size}px`;
+                nodeEl.style.left = `${x}%`;
+                nodeEl.style.top = `${y}%`;
+                
+                neuralNetworkBg.appendChild(nodeEl);
+                nodes.push({ el: nodeEl, x, y, size });
+            }
+
+            // Cria as conexões entre os nós
+            for (let i = 0; i < numNodes; i++) {
+                for (let j = i + 1; j < numNodes; j++) {
+                    // Conecta apenas alguns nós aleatoriamente para não poluir a tela
+                    if (Math.random() > 0.85) {
+                        const nodeA = nodes[i];
+                        const nodeB = nodes[j];
+
+                        const connectionEl = document.createElement('div');
+                        connectionEl.className = 'connection';
+
+                        const angle = Math.atan2(nodeB.y - nodeA.y, nodeB.x - nodeA.x) * 180 / Math.PI;
+                        const length = Math.sqrt(Math.pow(nodeB.x - nodeA.x, 2) + Math.pow(nodeB.y - nodeA.y, 2));
+
+                        connectionEl.style.width = `${length}vw`; // Usa vw para ser responsivo
+                        connectionEl.style.left = `${nodeA.x}%`;
+                        connectionEl.style.top = `${nodeA.y}%`;
+                        connectionEl.style.transform = `rotate(${angle}deg)`;
+                        
+                        neuralNetworkBg.appendChild(connectionEl);
+                    }
+                }
+            }
+
+            // Anima o "pulso" dos nós
+            setInterval(() => {
+                nodes.forEach(node => {
+                    const scale = 0.8 + Math.random() * 0.7;
+                    node.el.style.transform = `scale(${scale})`;
+                });
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
